@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario con Arreglos</title>
+    <script src="js/Inventario.js"></script>
+    <script src="js/Producto.js"></script>
+</head>
+<body>
+    <!-- Todo nuestro proyecto debe estar dentro de un div-->
+    <div id="app">
+        <form> <!-- Usamos el for para asignar una parte de nuestra app-->
+            <label for="txtCodigo">       <!-- Usar el estandar [tipo] + nombre del campo -->
+                Código:<input type="text" id="txtCodigo">
+            </label>
+            <label for="txtNombre">
+                Nombre:<input type="text" id="txtNombre">
+            </label>
+            <button type="button" id="btnAgregar">Agregar</button>
+            <button type="reset" id="btnCancelar">Cancelar</button>
+        </form>
+    </div>
+    
+    <!-- Apartado para borrar-->
+    <div id="detalles"></div>
+    <script> //Tener acceso a los valores
+
+        let miInventario = new Inventario();
+
+        const btnAgregar = document.getElementById("btnAgregar");
+        btnAgregar.addEventListener("click",()=>{
+
+            let codigo = document.getElementById("txtCodigo").value;
+            let nombre = document.getElementById("txtNombre").value;
+            let nuevo = new Producto(codigo, nombre);
+            miInventario.agregar(nuevo);
+
+            //Caso de eliminar un documento
+            const btnEliminar = document.getElementById("btnEliminar");
+            let detalles=document.getElementById("detalles");
+
+            btnEliminar.addEventListener("click",()=>{
+                if(miInventario.eliminar(codigo)==true)
+                    detalles.innerHTML += 
+                    "<h2>Se elimino el producto con codigo"+codigo+"</h2>";
+                else
+                    detalles.innerHTML +
+                    "<h2>No se elimino el producto"+codigo+"</h2>";
+            });
+        });
+    </script>
+</body>
+</html>
